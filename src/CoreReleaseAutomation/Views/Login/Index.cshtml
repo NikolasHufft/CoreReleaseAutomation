@@ -1,0 +1,28 @@
+﻿@model CoreReleaseAutomation.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="~/css/site.css" rel="stylesheet" id="site-css" />
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <div class="fadeIn first">
+            <img src="~/images/background.jpg" id="icon" alt="User Icon" />
+        </div>
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true);
+            @Html.TextBoxFor(m => m.UserName, new { @class = "fadeIn second", @placeholder = "login", @requried = "required", @autocomplete = "off" })
+            @Html.TextBoxFor(m => m.Password, new { @class = "key fadeIn third", @placeholder = "password", @requried = "required", @autocomplete = "off" })
+            <input type = "submit" class="fadeIn fourth" value="Log In">
+        }
+        <div id="formFooter">
+            <a class="underlineHover" href="#">Click here to see how to configure auto loggin in your browser</a>
+        </div>
+    </div>
+</div>
+
+

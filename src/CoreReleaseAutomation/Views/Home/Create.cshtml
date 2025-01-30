@@ -1,0 +1,120 @@
+﻿@model CoreReleaseAutomation.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="row">
+    <div class="col-sm-2">
+        <div align="left"><h4>New Release</h4></div>
+    </div>
+    <div class="col-sm-6">
+        &nbsp;
+    </div>
+    <div class="col-sm-2">
+        <div align="right"><a asp-action="Index">Back to List</a></div>
+    </div>
+</div>
+<hr />
+@using (Html.BeginForm("Create", "Home", FormMethod.Post))
+{
+    @Html.ValidationSummary(true);
+    <fieldset class="form-group">
+        <div class="row">
+            <div class="col-form-label col-sm-2 pt-0">Release Type</div>
+            <div class="col-sm-8">
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="Hotfix" name="ReleaseType" class="form-check-input" checked onchange="onReleaseTypeChanged();" value="Hotfix">
+                    <label class="form-check-label" for="Hotfix">
+                        Hotfix
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="EndOfSprint" name="ReleaseType" class="form-check-input" onchange="onReleaseTypeChanged();" value="EndOfSprint">
+                    <label class="form-check-label" for="EndOfSprint">
+                        End of Sprint
+                    </label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <div class="form-row align-items-center">
+        <div class="col-sm-2">
+            <label for="ReleaseName" class="col-form-label">Relase Name</label>
+        </div>
+        <div class="col-sm-4">
+            @Html.TextBoxFor(m => m.ReleaseName, new { @class = "form-control", @placeholder = "Release Name", @requried = "required", @autocomplete = "off", @readonly = "readonly", @style = "text-align: left" })
+
+        </div>
+        <div class="col-sm-3">
+            <div>
+                <div class="col-form-label">Override Name?</div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="overrideNameNo" name="OverrideName" class="form-check-input" checked="checked" onchange="onOverrideChanged();">
+                    <label class="form-check-label" for="overrideNameNo">
+                        No
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="OverrideNameYes" name="OverrideName" class="form-check-input" onchange="onOverrideChanged();">
+                    <label class="form-check-label" for="OverrideNameYes">
+                        Yes
+                    </label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Description" class="col-sm-2 col-form-label">Release Description</label>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @placeholder = "Description", @requried = "required", @autocomplete = "off", @rows = "8" })
+        </div>
+    </div>
+    <fieldset class="form-group">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="col-form-label">Copy Files to Patch Folder?</div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(m => m.CopyFiles, "Yes", new { @class = "form-check-input", @checked = "true"}) @Html.Label("Yes")
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.CopyFiles, "No", new { @class = "form-check-input" }) @Html.Label("No")
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <div class="form-row">&nbsp;</div>
+    <div class="form-row">
+        <div class="col-sm-2">
+            <label for="inputState" class="col-form-label">Manager</label>
+        </div>
+        <div class="col-sm-4">
+            @Html.DropDownListFor(m => m.Manager, new SelectList(Model.Managers), htmlAttributes: new { @class = "custom-select", @id = "Manger" })
+        </div>
+    </div>
+    <div class="form-row">&nbsp;</div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" id="submitRelease" class="btn btn-primary" onclick="return submitRelease();">Save Release</button>
+            <button type="submit" id="backToList" class="btn btn-primary" onclick="return submitRelease();" hidden>Back to Home</button>
+        </div>
+    </div>
+    <div id="results">
+        <div class="form-row">&nbsp;</div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <textarea rows="7" id="JobTracker" name="JobTracker" placeholder="Job Tracker"></textarea>
+            </div>
+        </div>
+        <div class="form-row">&nbsp;</div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <textarea rows="7" id="ExecutionLog" name="ExecutionLog" placeholder="Execution Log"></textarea>
+            </div>
+        </div>
+    </div>    
+}

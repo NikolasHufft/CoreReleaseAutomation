@@ -1,0 +1,68 @@
+﻿@model IEnumerable<CoreReleaseAutomation.ViewModels.HomeViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>List of Releases</h4>
+
+<div class="row">
+    <div class="col-sm-2">
+        <a asp-action="Create">Create New</a>
+    </div>
+    <div class="col-sm-5">
+        &nbsp;
+    </div>
+    <div class="col-sm-3">
+        <div align="right"><a asp-action="ReleaseApproved">Check for Release approved</a></div>
+    </div>
+</div>
+<p>
+    
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Version)</th>
+            <th>@Html.DisplayNameFor(model => model.ReleaseName)</th>
+            <th>@Html.DisplayNameFor(model => model.ReleaseType)</th>
+            <th>@Html.DisplayNameFor(model => model.Manager)</th>
+            <th>@Html.DisplayNameFor(model => model.Status)</th>
+            <th>@Html.DisplayNameFor(model => model.dt_modify)</th>
+            <th>@Html.DisplayNameFor(model => model.id_modify)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Version)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manager)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dt_modify)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_modify)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ReleaseAutomationId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ReleaseAutomationId" onclick="return confirm('Are you sure you want to delete this release from the Database?');">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
